@@ -339,6 +339,64 @@ export default function Index() {
   }
 
   // ── FINISH SCREEN ──
+  const handlePrint = () => {
+    const pct = Math.round((totalScore / MAX_TOTAL) * 100);
+    const grade = getGrade(pct);
+    const rows = TASKS.map((t) => {
+      const earned = scores[t.id] ?? 0;
+      return `<tr>
+        <td style="padding:6px 10px;border-bottom:1px solid #eee;">${t.id}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid #eee;">${t.shape}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:center;">${earned} / ${t.maxPoints}</td>
+        <td style="padding:6px 10px;border-bottom:1px solid #eee;text-align:center;">${earned > 0 ? "✓" : "✗"}</td>
+      </tr>`;
+    }).join("");
+
+    const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
+    <title>Результат квеста — ${playerName}</title>
+    <style>
+      body { font-family: Arial, sans-serif; color: #1a1a2e; padding: 32px; max-width: 600px; margin: 0 auto; }
+      h1 { font-size: 22px; margin-bottom: 4px; }
+      .sub { color: #888; font-size: 13px; margin-bottom: 24px; }
+      .grade-box { display:inline-flex; flex-direction:column; align-items:center; justify-content:center;
+        width:100px; height:100px; border-radius:50%; border:4px solid ${grade.color};
+        background:${grade.color}18; margin-bottom:20px; }
+      .grade-num { font-size:48px; font-weight:bold; color:${grade.color}; line-height:1; }
+      .grade-lbl { font-size:11px; color:${grade.color}; font-weight:600; margin-top:4px; }
+      .stats { display:flex; gap:32px; margin-bottom:24px; }
+      .stat-val { font-size:28px; font-weight:bold; color:${grade.color}; }
+      .stat-lbl { font-size:11px; color:#888; margin-top:2px; }
+      table { width:100%; border-collapse:collapse; font-size:13px; }
+      th { text-align:left; padding:8px 10px; background:#f5f5f5; font-weight:600; font-size:12px; color:#666; }
+      .scale { font-size:11px; color:#888; margin-top:6px; }
+      .footer { margin-top:28px; font-size:11px; color:#aaa; border-top:1px solid #eee; padding-top:12px; }
+    </style></head><body>
+    <h1>${playerName}</h1>
+    <p class="sub">Веб-квест · Объёмы многогранников · ${new Date().toLocaleDateString("ru-RU")}</p>
+    <div class="grade-box">
+      <span class="grade-num">${grade.mark}</span>
+      <span class="grade-lbl">${grade.label}</span>
+    </div>
+    <div class="stats">
+      <div><div class="stat-val">${totalScore}</div><div class="stat-lbl">из ${MAX_TOTAL} баллов</div></div>
+      <div><div class="stat-val">${pct}%</div><div class="stat-lbl">результат</div></div>
+    </div>
+    <p class="scale">Шкала оценок: «2» &lt;40% · «3» 40–64% · «4» 65–84% · «5» ≥85%</p>
+    <br/>
+    <table>
+      <thead><tr>
+        <th>#</th><th>Фигура</th><th style="text-align:center">Баллы</th><th style="text-align:center">Верно</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="footer">Сформировано автоматически · poehali.dev</div>
+    </body></html>`
+    + `<scr` + `ipt>window.onload=()=>{window.print();}</scr` + `ipt>`;
+
+    const win = window.open("", "_blank");
+    if (win) { win.document.write(html); win.document.close(); }
+  };
+
   if (screen === "finish") {
     const pct = Math.round((totalScore / MAX_TOTAL) * 100);
     const grade = getGrade(pct);
@@ -413,10 +471,15 @@ export default function Index() {
               style={{ backgroundColor: "var(--quest-accent)", color: "#fff" }}>
               Пройти снова
             </button>
-            <button onClick={() => setScreen("leaderboard")} className="flex-1 py-3 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2"
+            <button onClick={() => setScreen("leaderboard")} className="py-3 px-4 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2"
               style={{ backgroundColor: "var(--quest-surface)", color: "var(--quest-text)", border: "1px solid var(--quest-border)" }}>
               <Icon name="Trophy" size={14} />
               Таблица
+            </button>
+            <button onClick={handlePrint} className="py-3 px-4 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2"
+              style={{ backgroundColor: "var(--quest-surface)", color: "var(--quest-text)", border: "1px solid var(--quest-border)" }}>
+              <Icon name="Printer" size={14} />
+              Печать
             </button>
           </div>
         </div>
