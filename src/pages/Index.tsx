@@ -213,7 +213,7 @@ export default function Index() {
   };
 
   const handleCheck = () => {
-    const userVal = parseFloat(input.replace(",", "."));
+    const userVal = Math.round(parseFloat(input.replace(",", ".")));
     if (isNaN(userVal)) return;
 
     if (Math.abs(userVal - task.answer) < 0.6) {
