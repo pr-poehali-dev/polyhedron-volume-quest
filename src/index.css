@@ -91,11 +91,94 @@
 }
 
 @layer base {
+  :root {
+    --quest-bg: #f7f6f3;
+    --quest-surface: #ffffff;
+    --quest-border: #e8e5df;
+    --quest-text: #1a1917;
+    --quest-muted: #8a8278;
+    --quest-accent: #2d5a8e;
+    --quest-accent-light: #ebf1f8;
+    --quest-success: #2a7a4b;
+    --quest-success-light: #e8f5ee;
+    --quest-hint: #7a5c2a;
+    --quest-hint-light: #fdf4e7;
+    --quest-error: #a33020;
+    --quest-error-light: #fbeee9;
+  }
+
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Golos Text", sans-serif;
+    background-color: var(--quest-bg);
+    color: var(--quest-text);
+  }
+
+  .font-mono {
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
+@layer utilities {
+  .quest-card {
+    background: var(--quest-surface);
+    border: 1px solid var(--quest-border);
+    border-radius: 12px;
+  }
+
+  .quest-fade-in {
+    animation: questFadeIn 0.35s ease forwards;
+  }
+
+  @keyframes questFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .quest-shake {
+    animation: questShake 0.4s ease;
+  }
+
+  @keyframes questShake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20% {
+      transform: translateX(-6px);
+    }
+    40% {
+      transform: translateX(6px);
+    }
+    60% {
+      transform: translateX(-4px);
+    }
+    80% {
+      transform: translateX(4px);
+    }
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--quest-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--quest-accent);
+    border-radius: 2px;
+    transition: width 0.5s ease;
   }
 }
