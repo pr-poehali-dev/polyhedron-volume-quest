@@ -236,7 +236,27 @@ export default function Index() {
       setWrongAttempts(attempts);
       setTaskState("wrong");
       setShakeKey((k) => k + 1);
-      if (attempts >= 2) setShowHint(true);
+      setShowHint(true);
+      if (attempts >= 2) {
+        setScores((prev) => ({ ...prev, [task.id]: 0 }));
+        setCompleted((prev) => {
+          const next = new Set([...prev, task.id]);
+          if (next.size === TASKS.length) {
+            const entry: ResultEntry = {
+              name: playerName || "Аноним",
+              score: totalScore,
+              maxScore: MAX_TOTAL,
+              correct: [...next].filter((id) => (scores[id] ?? 0) > 0).length,
+              total: TASKS.length,
+              date: new Date().toLocaleDateString("ru-RU"),
+            };
+            saveResult(entry);
+            setResults(loadResults());
+            setTimeout(() => setScreen("finish"), 1200);
+          }
+          return next;
+        });
+      }
     }
   };
 
@@ -671,20 +691,27 @@ export default function Index() {
                   )}
                 </div>
                 <button
-                  onClick={taskState === "correct" ? handleNext : handleCheck}
-                  disabled={!input}
+                  onClick={taskState === "correct" || (taskState === "wrong" && wrongAttempts >= 2) ? handleNext : handleCheck}
+                  disabled={!input && taskState !== "wrong"}
                   className="px-5 py-3 rounded-lg text-sm font-medium transition-all disabled:opacity-40"
-                  style={{ backgroundColor: taskState === "correct" ? "var(--quest-success)" : "var(--quest-accent)", color: "#fff" }}>
+                  style={{ backgroundColor: taskState === "correct" ? "var(--quest-success)" : taskState === "wrong" && wrongAttempts >= 2 ? "var(--quest-error)" : "var(--quest-accent)", color: "#fff" }}>
                   {taskState === "correct"
+                    ? currentTaskIdx < TASKS.length - 1 ? "Далее" : "Финиш"
+                    : taskState === "wrong" && wrongAttempts >= 2
                     ? currentTaskIdx < TASKS.length - 1 ? "Далее" : "Финиш"
                     : "Проверить"}
                 </button>
               </div>
             </div>
 
-            {taskState === "wrong" && (
+            {taskState === "wrong" && wrongAttempts < 2 && (
               <p className="text-xs mt-2 quest-fade-in" style={{ color: "var(--quest-error)" }}>
-                Неверно. Попробуйте ещё раз.{wrongAttempts >= 2 && " Посмотрите подсказку."}
+                Неверно. Осталась 1 попытка.
+              </p>
+            )}
+            {taskState === "wrong" && wrongAttempts >= 2 && (
+              <p className="text-xs mt-2 quest-fade-in" style={{ color: "var(--quest-error)" }}>
+                Попытки исчерпаны. 0 баллов за эту задачу. Посмотрите решение.
               </p>
             )}
 
@@ -702,7 +729,7 @@ export default function Index() {
           </div>
 
           {/* Explanation */}
-          {taskState === "correct" && (
+          {(taskState === "correct" || (taskState === "wrong" && wrongAttempts >= 2)) && (
             <div className="quest-fade-in">
               <button onClick={() => setShowExplanation(!showExplanation)}
                 className="flex items-center gap-2 text-sm" style={{ color: "var(--quest-success)" }}>
