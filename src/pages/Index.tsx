@@ -6,6 +6,7 @@ interface Task {
   level: number;
   shape: string;
   shapeIcon: string;
+  image: string;
   question: string;
   formula: string;
   formulaLabel: string;
@@ -26,9 +27,15 @@ interface ResultEntry {
   date: string;
 }
 
+const IMG_CUBE = "https://cdn.poehali.dev/projects/aa07a7aa-164b-4433-80ab-6d2424b93556/files/47d792bd-3477-436a-94ec-955ae1ac13c2.jpg";
+const IMG_BOX = "https://cdn.poehali.dev/projects/aa07a7aa-164b-4433-80ab-6d2424b93556/files/529cd37c-0bd4-4858-b9b6-4646a08c09c8.jpg";
+const IMG_PRISM = "https://cdn.poehali.dev/projects/aa07a7aa-164b-4433-80ab-6d2424b93556/files/b43fb8c6-2f5a-41c9-9bf0-335a140ee4b3.jpg";
+const IMG_PYRAMID = "https://cdn.poehali.dev/projects/aa07a7aa-164b-4433-80ab-6d2424b93556/files/11d3fabd-35b4-4539-b6d2-aca22f77d381.jpg";
+const IMG_COMPOSITE = "https://cdn.poehali.dev/projects/aa07a7aa-164b-4433-80ab-6d2424b93556/files/6256e128-aaee-4e23-905e-0f54f74b0eca.jpg";
+
 const TASKS: Task[] = [
   {
-    id: 1, level: 1, shape: "Куб", shapeIcon: "Box",
+    id: 1, level: 1, shape: "Куб", shapeIcon: "Box", image: IMG_CUBE,
     question: "Найдите объём куба со стороной 4 см.",
     formula: "V = a³", formulaLabel: "Объём куба",
     given: [{ label: "Сторона a", value: "4 см" }],
@@ -38,7 +45,7 @@ const TASKS: Task[] = [
     maxPoints: 10,
   },
   {
-    id: 2, level: 1, shape: "Куб", shapeIcon: "Box",
+    id: 2, level: 1, shape: "Куб", shapeIcon: "Box", image: IMG_CUBE,
     question: "Найдите объём куба, если его ребро равно 7 см.",
     formula: "V = a³", formulaLabel: "Объём куба",
     given: [{ label: "Сторона a", value: "7 см" }],
@@ -48,7 +55,7 @@ const TASKS: Task[] = [
     maxPoints: 10,
   },
   {
-    id: 3, level: 2, shape: "Прямоугольный параллелепипед", shapeIcon: "RectangleHorizontal",
+    id: 3, level: 2, shape: "Прямоугольный параллелепипед", shapeIcon: "RectangleHorizontal", image: IMG_BOX,
     question: "Найдите объём прямоугольного параллелепипеда с длиной 6 см, шириной 4 см и высотой 5 см.",
     formula: "V = a · b · h", formulaLabel: "Объём параллелепипеда",
     given: [{ label: "Длина a", value: "6 см" }, { label: "Ширина b", value: "4 см" }, { label: "Высота h", value: "5 см" }],
@@ -58,7 +65,7 @@ const TASKS: Task[] = [
     maxPoints: 10,
   },
   {
-    id: 4, level: 2, shape: "Прямоугольный параллелепипед", shapeIcon: "RectangleHorizontal",
+    id: 4, level: 2, shape: "Прямоугольный параллелепипед", shapeIcon: "RectangleHorizontal", image: IMG_BOX,
     question: "Аквариум имеет форму прямоугольного параллелепипеда: длина 80 см, ширина 30 см, высота 40 см. Найдите его объём в литрах.",
     formula: "V = a · b · h", formulaLabel: "Объём параллелепипеда",
     given: [{ label: "Длина a", value: "80 см" }, { label: "Ширина b", value: "30 см" }, { label: "Высота h", value: "40 см" }],
@@ -68,7 +75,7 @@ const TASKS: Task[] = [
     maxPoints: 10,
   },
   {
-    id: 5, level: 3, shape: "Правильная треугольная призма", shapeIcon: "Triangle",
+    id: 5, level: 3, shape: "Правильная треугольная призма", shapeIcon: "Triangle", image: IMG_PRISM,
     question: "Основание правильной треугольной призмы — равносторонний треугольник со стороной 6 см. Высота призмы 10 см. Найдите объём.",
     formula: "V = S · h,  S = (a² · √3) / 4", formulaLabel: "Объём призмы",
     given: [{ label: "Сторона основания a", value: "6 см" }, { label: "Высота призмы h", value: "10 см" }],
@@ -78,7 +85,7 @@ const TASKS: Task[] = [
     maxPoints: 15,
   },
   {
-    id: 6, level: 3, shape: "Прямая призма", shapeIcon: "Triangle",
+    id: 6, level: 3, shape: "Прямая призма", shapeIcon: "Triangle", image: IMG_PRISM,
     question: "В основании прямой призмы лежит прямоугольный треугольник с катетами 3 и 4 см. Высота призмы 12 см. Найдите объём.",
     formula: "V = S · h,  S = (a · b) / 2", formulaLabel: "Объём призмы",
     given: [{ label: "Катет a", value: "3 см" }, { label: "Катет b", value: "4 см" }, { label: "Высота h", value: "12 см" }],
@@ -88,7 +95,7 @@ const TASKS: Task[] = [
     maxPoints: 15,
   },
   {
-    id: 7, level: 4, shape: "Правильная пирамида", shapeIcon: "Mountain",
+    id: 7, level: 4, shape: "Правильная пирамида", shapeIcon: "Mountain", image: IMG_PYRAMID,
     question: "Найдите объём правильной четырёхугольной пирамиды, если сторона основания 6 см, высота 8 см.",
     formula: "V = (1/3) · S · h", formulaLabel: "Объём пирамиды",
     given: [{ label: "Сторона основания a", value: "6 см" }, { label: "Высота h", value: "8 см" }],
@@ -98,7 +105,7 @@ const TASKS: Task[] = [
     maxPoints: 15,
   },
   {
-    id: 8, level: 4, shape: "Правильная пирамида", shapeIcon: "Mountain",
+    id: 8, level: 4, shape: "Правильная пирамида", shapeIcon: "Mountain", image: IMG_PYRAMID,
     question: "Высота правильной треугольной пирамиды равна 9 см, сторона правильного треугольника в основании — 6 см. Найдите объём.",
     formula: "V = (1/3) · S · h", formulaLabel: "Объём пирамиды",
     given: [{ label: "Сторона основания a", value: "6 см" }, { label: "Высота h", value: "9 см" }],
@@ -108,7 +115,7 @@ const TASKS: Task[] = [
     maxPoints: 15,
   },
   {
-    id: 9, level: 5, shape: "Составная фигура", shapeIcon: "Layers",
+    id: 9, level: 5, shape: "Составная фигура", shapeIcon: "Layers", image: IMG_COMPOSITE,
     question: "Фигура состоит из куба со стороной 4 см и пирамиды, стоящей на верхней грани куба. Высота пирамиды 3 см. Найдите суммарный объём фигуры.",
     formula: "V = V куба + V пирамиды", formulaLabel: "Суммарный объём",
     given: [{ label: "Ребро куба a", value: "4 см" }, { label: "Высота пирамиды h", value: "3 см" }],
@@ -118,7 +125,7 @@ const TASKS: Task[] = [
     maxPoints: 20,
   },
   {
-    id: 10, level: 5, shape: "Составная фигура", shapeIcon: "Layers",
+    id: 10, level: 5, shape: "Составная фигура", shapeIcon: "Layers", image: IMG_COMPOSITE,
     question: "Из куба со стороной 10 см вырезали прямоугольный параллелепипед: длина 10 см, ширина 4 см, высота 6 см. Найдите объём оставшейся фигуры.",
     formula: "V = V куба − V выреза", formulaLabel: "Оставшийся объём",
     given: [{ label: "Ребро куба", value: "10 см" }, { label: "Длина выреза", value: "10 см" }, { label: "Ширина выреза", value: "4 см" }, { label: "Высота выреза", value: "6 см" }],
@@ -140,10 +147,10 @@ const LEVELS = [
 ];
 
 function getGrade(pct: number) {
-  if (pct >= 90) return { label: "Отлично", color: "var(--quest-success)" };
-  if (pct >= 70) return { label: "Хорошо", color: "#2563EB" };
-  if (pct >= 50) return { label: "Удовлетворительно", color: "var(--quest-hint)" };
-  return { label: "Нужно повторить", color: "var(--quest-error)" };
+  if (pct >= 85) return { label: "Отлично", mark: "5", color: "var(--quest-success)" };
+  if (pct >= 65) return { label: "Хорошо", mark: "4", color: "#2563EB" };
+  if (pct >= 40) return { label: "Удовлетворительно", mark: "3", color: "var(--quest-hint)" };
+  return { label: "Неудовлетворительно", mark: "2", color: "var(--quest-error)" };
 }
 
 type TaskState = "idle" | "correct" | "wrong";
@@ -340,13 +347,17 @@ export default function Index() {
         <div className="max-w-2xl mx-auto px-4 py-10 space-y-4">
           {/* Result card */}
           <div className="quest-card quest-fade-in p-8 text-center">
-            <div className="text-4xl mb-4" style={{ color: grade.color }}>
-              {pct >= 90 ? "★" : pct >= 70 ? "✓" : pct >= 50 ? "~" : "↻"}
-            </div>
             <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--quest-text)" }}>
               {playerName}
             </h1>
-            <p className="text-sm mb-5" style={{ color: "var(--quest-muted)" }}>квест завершён</p>
+            <p className="text-sm mb-6" style={{ color: "var(--quest-muted)" }}>квест завершён</p>
+
+            {/* Grade badge */}
+            <div className="inline-flex flex-col items-center justify-center w-28 h-28 rounded-full border-4 mx-auto mb-6"
+              style={{ borderColor: grade.color, backgroundColor: grade.color + "18" }}>
+              <p className="text-5xl font-bold leading-none" style={{ color: grade.color }}>{grade.mark}</p>
+              <p className="text-xs mt-1 font-medium" style={{ color: grade.color }}>{grade.label}</p>
+            </div>
 
             <div className="flex items-center justify-center gap-8 mb-6">
               <div>
@@ -358,14 +369,13 @@ export default function Index() {
                 <p className="text-3xl font-bold" style={{ color: "var(--quest-text)" }}>{pct}%</p>
                 <p className="text-xs mt-0.5" style={{ color: "var(--quest-muted)" }}>результат</p>
               </div>
-              <div style={{ width: 1, height: 48, backgroundColor: "var(--quest-border)" }} />
-              <div>
-                <p className="text-3xl font-bold" style={{ color: grade.color }}>{grade.label}</p>
-              </div>
             </div>
 
-            <div className="progress-bar mb-6">
+            <div className="progress-bar mb-2">
               <div className="progress-fill" style={{ width: `${pct}%`, backgroundColor: grade.color }} />
+            </div>
+            <div className="flex justify-between text-xs mb-4" style={{ color: "var(--quest-muted)" }}>
+              <span>«2» &lt;40%</span><span>«3» 40–64%</span><span>«4» 65–84%</span><span>«5» ≥85%</span>
             </div>
           </div>
 
@@ -479,7 +489,7 @@ export default function Index() {
                       <span className="text-sm font-mono" style={{ color: grade.color }}>{pct}%</span>
                     </div>
                     <div className="col-span-2 text-right">
-                      <span className="text-xs font-medium" style={{ color: grade.color }}>{grade.label}</span>
+                      <span className="text-sm font-bold" style={{ color: grade.color }}>«{grade.mark}»</span>
                     </div>
                   </div>
                 );
@@ -593,23 +603,27 @@ export default function Index() {
           </div>
 
           {/* Question card */}
-          <div className="quest-card p-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-                style={{ backgroundColor: "var(--quest-accent-light)" }}>
-                <Icon name={task.shapeIcon} size={20} fallback="Box" style={{ color: "var(--quest-accent)" }} />
+          <div className="quest-card overflow-hidden">
+            <div className="flex flex-col sm:flex-row">
+              <div className="sm:w-48 w-full h-44 sm:h-auto flex-shrink-0 overflow-hidden"
+                style={{ backgroundColor: "var(--quest-bg)" }}>
+                <img src={task.image} alt={task.shape}
+                  className="w-full h-full object-cover"
+                  style={{ objectPosition: "center" }} />
               </div>
-              <p className="text-base leading-relaxed font-medium" style={{ color: "var(--quest-text)" }}>
-                {task.question}
-              </p>
-            </div>
-            <div className="mt-4 pt-4 border-t flex flex-wrap gap-3" style={{ borderColor: "var(--quest-border)" }}>
-              {task.given.map((g) => (
-                <div key={g.label} className="flex items-center gap-1.5">
-                  <span className="text-xs" style={{ color: "var(--quest-muted)" }}>{g.label}:</span>
-                  <span className="text-sm font-medium font-mono" style={{ color: "var(--quest-text)" }}>{g.value}</span>
+              <div className="flex-1 p-6">
+                <p className="text-base leading-relaxed font-medium mb-4" style={{ color: "var(--quest-text)" }}>
+                  {task.question}
+                </p>
+                <div className="pt-4 border-t flex flex-wrap gap-3" style={{ borderColor: "var(--quest-border)" }}>
+                  {task.given.map((g) => (
+                    <div key={g.label} className="flex items-center gap-1.5">
+                      <span className="text-xs" style={{ color: "var(--quest-muted)" }}>{g.label}:</span>
+                      <span className="text-sm font-medium font-mono" style={{ color: "var(--quest-text)" }}>{g.value}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
 
